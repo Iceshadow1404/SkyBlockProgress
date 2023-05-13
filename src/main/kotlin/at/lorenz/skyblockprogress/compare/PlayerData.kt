@@ -26,6 +26,8 @@ class PlayerData {
     val slayers = mutableMapOf<String, SlayerData>()
     val crimsonIsleReputation = mutableMapOf<String, Long>()
 
+    var skyblockExperience = 0
+
     class SlayerData(val experience: Long, val bossKills: Map<String, Long>)
 
     companion object {
@@ -105,6 +107,11 @@ class PlayerData {
                                 data.bestiarityDeaths[label] = deaths
                             }
                         }
+                    }
+                    if (member.has("leveling")) {
+                        val leveling = member["leveling"].asJsonObject
+                        data.skyblockExperience = leveling["experience"].asInt
+
                     }
                     if (member.has("collection")) {
                         val collection = member["collection"].asJsonObject

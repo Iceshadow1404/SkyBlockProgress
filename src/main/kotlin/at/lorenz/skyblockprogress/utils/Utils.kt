@@ -8,6 +8,8 @@ import org.apache.http.impl.client.HttpClientBuilder
 import org.apache.http.impl.client.HttpClients
 import org.apache.http.message.BasicHeader
 import org.apache.http.util.EntityUtils
+import java.text.NumberFormat
+import java.util.*
 
 object Utils {
 
@@ -47,4 +49,6 @@ object Utils {
         }
         return JsonObject()
     }
+
+    fun Number.format() = NumberFormat.getNumberInstance(Locale.ENGLISH).format(this)
 }

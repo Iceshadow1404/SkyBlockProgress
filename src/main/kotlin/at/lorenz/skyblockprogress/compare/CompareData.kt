@@ -1,7 +1,7 @@
 package at.lorenz.skyblockprogress.compare
 
+import at.lorenz.skyblockprogress.utils.Utils.format
 import java.io.File
-import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
 class CompareData(private val apiKey: String, players: MutableMap<String, String>) {
@@ -61,12 +61,20 @@ class CompareData(private val apiKey: String, players: MutableMap<String, String
         result.add(" ")
         result.add("compare for $profileName: $firstLastSave with $secondLastSave")
         result.add(" ")
+        result.add(makeCompareText("skyblockExperience", first.skyblockExperience, second.skyblockExperience))
+
         result.add(makeCompareText("deathCount", first.deathCount, second.deathCount))
         result.add(makeCompareText("statsDeaths", first.statsDeaths, second.statsDeaths))
 
         compareSlayers(result, first.slayers, second.slayers)
 
-        result.addAll(printListChange("crimson isle reputation", first.crimsonIsleReputation, second.crimsonIsleReputation))
+        result.addAll(
+            printListChange(
+                "crimson isle reputation",
+                first.crimsonIsleReputation,
+                second.crimsonIsleReputation
+            )
+        )
         result.add(makeCompareText("mythology kills", first.mythologyKills, second.mythologyKills))
         result.addAll(printListChange("mythology burrows", first.mythologyData, second.mythologyData))
 
@@ -136,14 +144,14 @@ class CompareData(private val apiKey: String, players: MutableMap<String, String
     }
 
 
-    private fun makeCompareText(label: String, a: Long, b: Long, isList: Boolean = false): String {
-        val numberFormatter = DecimalFormat("#,##0")
-        val diff = b - a
+    private fun makeCompareText(label: String, a: Number, b: Number, isList: Boolean = false): String {
+        val diff = b.toLong() - a.toLong()
         if (diff == 0L) return ""
         val plus = if (diff > 0) "+" else ""
-        val aa = numberFormatter.format(a)
-        val bb = numberFormatter.format(b)
-        val diffFormat = numberFormatter.format(diff)
+
+        val aa = a.format()
+        val bb = b.format()
+        val diffFormat = diff.format()
         val newLine = if (isList) "" else "\n"
         return "$newLine$label: $plus$diffFormat ($aa -> $bb)"
     }
