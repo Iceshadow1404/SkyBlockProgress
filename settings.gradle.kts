@@ -1,3 +1,3 @@
 
-rootProject.name = "SkyBlockProgressV5"
+rootProject.name = "SkyBlockProgress"
 
